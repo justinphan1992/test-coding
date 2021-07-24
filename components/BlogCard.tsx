@@ -7,28 +7,26 @@ import {
   Stack,  
   useColorModeValue,
 } from '@chakra-ui/react';
-
-type TBlogCardProps = {
-  title: string,
-  description: string,
-  imageUrl: string,
-  author: string,
-  publishDate: string
-  key?: string,
+import { IArticle } from 'models/article';
+interface IBlogCardProps extends IArticle  {
+  key: string,
+  onClick: () => void
 }
 
 const BlogCard = ({
   title,
   description,
-  imageUrl,
+  image,
   author,
   publishDate,
+  onClick,
   ...props
-}: TBlogCardProps): JSX.Element => {
+}: IBlogCardProps): JSX.Element => {
   return (
-    <Center cursor='pointer' py={6} key={props?.key}>
+    <Center onClick={onClick} cursor='pointer' py={6} key={props?.key}>
       <Box
         maxW={'445px'}
+        minH={'490px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
@@ -44,7 +42,7 @@ const BlogCard = ({
           pos={'relative'}>
           <Image
             alt={title}
-            src={imageUrl}
+            src={image}
             layout={'fill'}
           />
         </Box>

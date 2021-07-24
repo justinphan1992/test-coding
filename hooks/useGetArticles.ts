@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import firebase from 'services/firebase';
 import { IArticle } from 'models/article'
 
-const db = firebase.database()
+const db = firebase.firestore()
 
 type TGetArticlesProps = {
   loading: boolean,
@@ -12,17 +12,16 @@ type TGetArticlesProps = {
 const useGetArticles = (): TGetArticlesProps => {
   const [ articles, setArticles ] = useState<IArticle[]>([])
   const [ loading, setLoading ] = useState(true);
+  
   useEffect(() => {
-    const ref = db.ref('articles')
-
-    ref.on('value', (snapshot) => {      
-      setArticles(snapshot.val())
+    const unsubscribe = db.collection('/articles').onSnapshot((snapshot) => {
+      const docs = []
+      snapshot.docs.forEach((doc) => docs.push({...doc.data(), id: doc.id }))
+      setArticles(docs)
       setLoading(false)
-      console.log(snapshot.val())
     })
-
-    return () => ref.off()
-  })
+    return () => unsubscribe()
+  }, [])
 
   return { articles, loading }
 }

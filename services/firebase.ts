@@ -1,6 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/database'
+import 'firebase/firestore'
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -9,8 +9,7 @@ if (!firebase.apps.length) {
     projectId: process.env.NEXT_PUBLIC_FB_PROJECT,
     storageBucket: process.env.NEXT_PUBLIC_FB_BUCKET,
     messagingSenderId: process.env.NEXT_PUBLIC_FB_SENDER,
-    appID: process.env.NEXT_PUBLIC_FB_APP,
-    databaseURL: `https://${process.env.NEXT_PUBLIC_FB_PROJECT}.asia-southeast1.firebaseio.com`
+    appID: process.env.NEXT_PUBLIC_FB_APP,    
   });
 } 
 
