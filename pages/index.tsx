@@ -1,10 +1,20 @@
+import { useRef } from 'react';
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import DynamicText from "../components/DynamicText";
+import DynamicText from "components/DynamicText";
+import { Input } from "@chakra-ui/react"
+import useAuth from 'hooks/useAuth';
+import useAuthValidation from 'hooks/useAuthValidation';
 
-const Home = () => {
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+const Home = (): JSX.Element => {
+  useAuthValidation()
+  const { signOut } = useAuth()  
+  const dynamicTextRef = useRef(null)
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
+    if (dynamicTextRef.current) {
+      dynamicTextRef.current.changeValue(e.target.value)
+    }
   };
 
   return (
@@ -15,8 +25,9 @@ const Home = () => {
       </Head>
 
       <main className={styles.main}>
-        <DynamicText />
-        <input onChange={onChange} />
+        <DynamicText ref={dynamicTextRef} />
+        <Input onChange={onChange} />
+        <button onClick={signOut}>SignOut</button>
       </main>
     </div>
   );
