@@ -33,7 +33,7 @@ const ModalBlogDetail = ({
       <ModalContent>
         <ModalHeader>{article.title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody overflow='hidden'>
           <div dangerouslySetInnerHTML={{
             __html: dompurify.sanitize(article.content)
           }}></div>          

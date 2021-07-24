@@ -48,12 +48,13 @@ const BlogCard = ({
         </Box>
         <Stack>         
           <Heading
+            minH={'84px'}
             color={useColorModeValue('gray.700', 'white')}
             fontSize={'2xl'}
             fontFamily={'body'}>
             {title}
           </Heading>
-          <Text color={'gray.500'}>
+          <Text minH={'72px'} color={'gray.500'}>
            {description}
           </Text>
         </Stack>
